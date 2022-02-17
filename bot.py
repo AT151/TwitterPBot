@@ -24,32 +24,48 @@ def add_noise(image):
 
 def add_text(image):
     x, y = image.size[0] / 5, image.size[1] / 4
+    i, j = image.size[0] / 4, image.size[1] / 5
 
-    text = "Bottom Text"
+    b_text = "BOTTOM TEXT"
+    m_text = "meo meo"
     draw = ImageDraw.Draw(image)
-    font_type = ImageFont.truetype("Arial.ttf", 128)  # 18 -> font size
+    font_type = ImageFont.truetype("Arial.ttf", 256)  # 18 -> font size
     # thin border
-    draw.text((x-1, y), text, font=font_type, fill="black")
-    draw.text((x+1, y), text, font=font_type, fill="black")
-    draw.text((x, y-1), text, font=font_type, fill="black")
-    draw.text((x, y+1), text, font=font_type, fill="black")
+    draw.text((x-1, y), b_text, font=font_type, fill="black")
+    draw.text((x+1, y), b_text, font=font_type, fill="black")
+    draw.text((x, y-1), b_text, font=font_type, fill="black")
+    draw.text((x, y+1), b_text, font=font_type, fill="black")
 
     # thicker border
-    draw.text((x-1, y-1), text, font=font_type, fill="black")
-    draw.text((x+1, y-1), text, font=font_type, fill="black")
-    draw.text((x-1, y+1), text, font=font_type, fill="black")
-    draw.text((x+1, y+1), text, font=font_type, fill="black")
+    draw.text((x-1, y-1), b_text, font=font_type, fill="black")
+    draw.text((x+1, y-1), b_text, font=font_type, fill="black")
+    draw.text((x-1, y+1), b_text, font=font_type, fill="black")
+    draw.text((x+1, y+1), b_text, font=font_type, fill="black")
 
-    draw.text((x, y), text, (255, 255, 255), font=font_type) 
+    # thin border
+    draw.text((i-1, j), m_text, font=font_type, fill="black")
+    draw.text((i+1, j), m_text, font=font_type, fill="black")
+    draw.text((i, j-1), m_text, font=font_type, fill="black")
+    draw.text((i, j+1), m_text, font=font_type, fill="black")
+
+    # thicker border
+    draw.text((i-1, j-1), m_text, font=font_type, fill="black")
+    draw.text((i+1, j-1), m_text, font=font_type, fill="black")
+    draw.text((i-1, j+1), m_text, font=font_type, fill="black")
+    draw.text((i+1, j+1), m_text, font=font_type, fill="black")
+
+    draw.text((x, y), b_text, (255, 255, 255), font=font_type) 
+    draw.text((i, j), m_text, (255, 255, 255), font=font_type) 
+
 
 def recieve_image():
     reddit = praw.Reddit(client_id = config.client_id,
             client_secret = config.client_secret,
             user_agent="user agent")
 
-    subreddit = reddit.subreddit("cats")
+    subreddit = reddit.subreddit("cocks")
 
-    hot_posts = subreddit.top(limit = 5)
+    hot_posts = subreddit.hot(limit = 20)
 
     for post in hot_posts:
         if ".jpg" in post.url or ".png" in post.url:
